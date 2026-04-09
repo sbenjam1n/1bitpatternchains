@@ -2,6 +2,14 @@
 
 I've been testing PrismML's Bonsai 8B (1.15 GB, true 1-bit weights) to see what you can actually do with pattern chaining on a model this small. The goal was to figure out where the capability boundaries are and whether multi-step chains produce measurably better results than single-pass prompting. I ran everything on a free Colab T4.
 
+## Notebooks
+
+**3-step chain:**
+[Open in Colab](https://colab.research.google.com/drive/1pJWQGJgrReacsdrx7u32fSBj9dFuPP9v?usp=sharing)
+
+**Full test run** 
+[Open in Colab](https://colab.research.google.com/drive/1YyRM4AuHfHSm0VXM7FAdxX_S5WDWqkyg?usp=sharing)
+
 ## Setup
 
 I created an API specification for a fictional document management service, along with a permissions model (7 rules covering auth, access control, scoping, rate limits, secrets, bulk ops, and soft-delete). Then seeded 5 specific violations into the spec:
@@ -93,11 +101,5 @@ Bonsai 8B in 1.15 GB is genuinely useful for structured detection tasks. A 3-ste
 But the model has hard limits: it can't edit documents, it can't write code, it can't self-correct, it can't reason about relationships between separate contexts. These are capability boundaries at this parameter count and precision level that the right prompting can't sidestep.
 
 The practical architecture that falls out of this testing uses Bonsai in a detection and classification layers pipeline with a larger model for planning, editing, and to take care of anything Bonsai flags but can't fix; the 1-bit model is an auditor, not an editor.
-
-## Notebooks
-
-**3-step chain:**
-[Open in Colab](https://colab.research.google.com/drive/1pJWQGJgrReacsdrx7u32fSBj9dFuPP9v?usp=sharing)
-
 
 ---
