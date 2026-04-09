@@ -7,7 +7,7 @@ I've been testing PrismML's Bonsai 8B (1.15 GB, true 1-bit weights) to see what 
 **3-step chain:**
 [Open in Colab](https://colab.research.google.com/drive/1pJWQGJgrReacsdrx7u32fSBj9dFuPP9v?usp=sharing)
 
-**Full test run** 
+**Full test run:** 
 [Open in Colab](https://colab.research.google.com/drive/1YyRM4AuHfHSm0VXM7FAdxX_S5WDWqkyg?usp=sharing)
 
 ## Setup
