@@ -101,5 +101,3 @@ The practical architecture that falls out of this testing uses Bonsai in a detec
 
 
 ---
-
-*Model: PrismML Bonsai 8B (1-bit, 1.15 GB GGUF, Apache 2.0). Inference: PrismML's llama.cpp fork, prebuilt CUDA binaries, Colab T4. No API keys needed.*
