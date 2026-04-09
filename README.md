@@ -6,7 +6,7 @@ I've been testing PrismML's Bonsai 8B (1.15 GB, true 1-bit weights) to see what 
 
 I created an API specification for a fictional document management service, along with a permissions model (7 rules covering auth, access control, scoping, rate limits, secrets, bulk ops, and soft-delete). Then seeded 5 specific violations into the spec:
 
-| # | Endpoint | What is wrong | Rule violated |
+| # | Endpoint | What's wrong | Rule violated |
 |---|----------|--------------|---------------|
 | 1 | `GET /users` | Returns all users with no admin check | Users can only access their own resources |
 | 2 | `POST /documents` | No write scope required | Write ops need explicit scope |
