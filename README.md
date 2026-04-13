@@ -58,7 +58,7 @@ The chain found all 5 violations. The single pass missed V1 (GET /users returnin
 
 ## What Bonsai 8B is bad at
 
-**Editing text.** This was the biggest finding. Bonsai can identify exactly what is wrong with a document, but it cannot fix it. I tested two approaches:
+**Editing text.** This was the biggest finding. Bonsai can identify exactly what's wrong with a document, but it can't fix it. I tested two approaches:
 
 *Full rewrite:* Ask the model to produce a corrected version of the entire document. It reproduced the original document verbatim, violations included. Every single violation survived in the "revised" output. Both the chain and the baseline did this.
 
