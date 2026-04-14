@@ -28,7 +28,7 @@ Can Bonsai find all 5 violations? Does a multi-step chain find more than a singl
 
 Three API calls give each step a focused job.
 
-**Step 1 (Extractor):** "Pull every security-relevant claim from this API spec." The model reads the spec and outputs a JSON list of claims like "GET /users returns a list of all registered users" and "DELETE /documents/{id} permanently removes the document." It is not trying to judge anything yet, just extracting what the spec says.
+**Step 1 (Extractor):** "Pull every security-relevant claim from this API spec." The model reads the spec and outputs a JSON list of claims like "GET /users returns a list of all registered users" and "DELETE /documents/{id} permanently removes the document." It isn't trying to judge anything yet, just extracting what the spec says.
 
 **Step 2 (Verifier):** "Here are the claims. Here are the rules. For each claim, is it compliant, a violation, or incomplete?" The model receives the claims from step 1 and the permissions model. It checks each claim against each rule and classifies it.
 
@@ -62,11 +62,11 @@ The chain found all 5 violations. The single pass missed V1 (GET /users returnin
 
 *Full rewrite:* Ask the model to produce a corrected version of the entire document. It reproduced the original document verbatim, violations included. Every single violation survived in the "revised" output. Both the chain and the baseline did this.
 
-*Diff-based editing:* Ask the model to output specific find/replace pairs (exact text to remove, exact text to replace it with). Three failure modes: (1) the model targeted the wrong sections of the document, (2) the "find" strings did not match the actual document text because the model changed capitalization, dropped markdown formatting, or collapsed lines, and (3) many edits had identical find and replace strings, meaning the model described the intent to fix something without actually changing anything.
+*Diff-based editing:* Ask the model to output specific find/replace pairs (exact text to remove, exact text to replace it with). Three failure modes: (1) the model targeted the wrong sections of the document, (2) the "find" strings didn't match the actual document text because the model changed capitalization, dropped markdown formatting, or collapsed lines, and (3) many edits had identical find and replace strings, meaning the model described the intent to fix something without actually changing anything.
 
-This is not a prompting issue. I tried multiple prompt formats across runs. The model can detect the problem and articulate what needs to change, but it can't produce the corrected text. At this model size, detection works, editing does not.
+This isn't a prompting issue. I tried multiple prompt formats across runs. The model can detect the problem and articulate what needs to change, but it can't produce the corrected text. At this model size, detection works, editing doesn't.
 
-**Self-correction.** I asked Bonsai to review its own JSON output and fix any errors. It claimed to have made corrections, produced a table of "changes," but the before and after outputs were identical. It narrated fixes it did not make. This is the most dangerous failure mode: false confidence. A reflexion loop with Bonsai 8B wouldn't converge on better output, with the model instead saying "looks good" about unchanged text.
+**Self-correction.** I asked Bonsai to review its own JSON output and fix any errors. It claimed to have made corrections, produced a table of "changes," but the before and after outputs were identical. It narrated fixes it didn't make. This is the most dangerous failure mode: false confidence. A reflexion loop with Bonsai 8B wouldn't converge on better output, with the model instead saying "looks good" about unchanged text.
 
 **Code generation.** I asked Bonsai to write a Python function for recursive document decomposition (chunking a corpus, processing each chunk, aggregating results). The output was an ugly wall of repeated regex patterns with no actual logic. It didn't implement chunking, didn't produce structured intermediates, and didn't aggregate anything. This was the single worst result: Bonsai 8B isn't suited to be the code-writing component of an agentic system.
 
@@ -92,7 +92,7 @@ The single pass receives a long prompt (the full spec plus the full permissions 
 
 The chain splits this into three short calls. Each call has a focused prompt and generates a focused response (about 500 tokens each). The total generation is 1,548 tokens versus 2,048. Less generation means less time, even with the overhead of three separate HTTP requests.
 
-The decomposition also means each step gets a simpler job. The extractor does not need to know the rules. The verifier doesn't need to produce a formatted report and the reporter does not need to re-read the original spec, so each model call operates on a smaller, cleaner context.
+The decomposition also means each step gets a simpler job. The extractor doesn't need to know the rules. The verifier doesn't need to produce a formatted report and the reporter doesn't need to re-read the original spec, so each model call operates on a smaller, cleaner context.
 
 ## What this means for local inference
 
